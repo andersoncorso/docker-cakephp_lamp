@@ -3,7 +3,7 @@ FROM php:7.3.6-apache
 
 # Variáveis env
 ENV DEPS="libicu-dev libpq-dev libmcrypt-dev mysql-client zip unzip zlib1g-dev libmcrypt-dev" \
-    APP_HOME="/var/www/html"
+    APP_HOME="/var/www/html/app"
     
 # Instalando dependencias do sistema e habilitando modulos PHP
 RUN apt-get update && apt-get install -y ${DEPS} \
@@ -22,7 +22,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ 
 # Mudando o UID e GID do apache para o Docker
 RUN usermod -u 1000 www-data && groupmod -g 1000 www-data \
 # Mudando o web_root para cakephp  Apache /var/www/html/webroot 
-    && sed -i -e "s/html/html\/webroot/g" /etc/apache2/sites-enabled/000-default.conf \
+    && sed -i -e "s/html/html\/app\/webroot/g" /etc/apache2/sites-enabled/000-default.conf \
 # Habilitando modulo rewrite
     && a2enmod rewrite
 

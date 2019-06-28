@@ -12,19 +12,41 @@ docker-compose -f "docker-compose.yml" up -d --build
 ### Conectando no container
 
 ```console
-docker-compose exec container-php /bin/bash
+docker-compose exec php /bin/bash
 ```
 
 ## Comandos dentro do container
 
 - Caso queira executar algum comando após a aplição ser executada em uma imagem docker, basta adicionar como prefixo do comando:
 ```console
-docker-compose exec container-php $nome_do_comando
+docker-compose exec php $nome_do_comando
 ```
 
 Exemplo:
 
+- Instalar novo projeto CakePHP (apague a pasta "app" antes de executar o comando):
+```console
+docker-compose exec php composer create-project --prefer-dist cakephp/app app
+```
 - Migration:
 ```console
-docker-compose exec container-php bin/cake migrations migrate
+docker-compose exec php bin/cake migrations migrate
+```
+
+
+### Comandos Docker ;)
+
+- Stop all container:
+```console
+docker stop $(docker ps -a -q)
+```
+
+- Delete all containers:
+```console
+docker rm $(docker ps -a -q)
+```
+
+- Delete all images:
+```console
+docker rmi $(docker images -q)
 ```
