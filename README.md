@@ -26,7 +26,7 @@ Exemplo:
 
 - Instalar novo projeto CakePHP (apague a pasta "app" antes de executar o comando):
 ```console
-docker-compose exec php composer create-project --prefer-dist cakephp/app app
+docker-compose exec php composer -d app create-project --prefer-dist cakephp/app app
 ```
 - Migration:
 ```console
