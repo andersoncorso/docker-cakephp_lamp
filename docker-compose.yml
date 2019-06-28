@@ -23,12 +23,13 @@ services:
         dockerfile: Dockerfile
       container_name: container-php
       environment:
-        - MYSQL_HOST=${MYSQL_HOST}    ## Host do serviço MySQL.
-      volumes:                        ## Útil para edições locais, em ambiente de produção.
-        - ./web:/var/www/html         ## essa configuração pode ser desabilitada.
+        - MYSQL_HOST=${MYSQL_HOST}                                    ## Host do serviço MySQL.
+      volumes:                                                        ## Útil para edições locais, em ambiente de produção.
+        - ./web:/var/www/html                                         
+        - ./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini 
       working_dir: /var/www/html
-      depends_on:                     ## Instrução para que o container apenas se inicie.
-        - mysql                       ## após validar conexão com o banco de dados MySQL.
+      depends_on:                                                     ## Instrução para que o container apenas se inicie.
+        - mysql                                                       ## após validar conexão com o banco de dados MySQL.
       ports:
        - "80:80"
 
