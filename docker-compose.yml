@@ -1,0 +1,51 @@
+version: "3.2"
+volumes:
+  mysql:
+services:
+
+    mysql:
+      image: mysql:${MYSQL_VERSION}
+      container_name: ${MYSQL_HOST}
+      working_dir: /var/lib/mysql
+      volumes:              
+        - mysql:/var/lib/mysql
+      environment:
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}      ## Senha de root de ambiente MySQL.
+        - MYSQL_DATABASE=${MYSQL_DATABASE}                ## Banco que será utilizado pela aplicação.
+        - MYSQL_USER=${MYSQL_USER}                        ## Nome de usuário.
+        - MYSQL_PASSWORD=${MYSQL_PASSWORD}                ## Senha criada para o usuário acima.
+      ports:
+        - "3306:3306"
+
+    php:
+      build:
+        context: ./etc/php
+        dockerfile: Dockerfile
+      container_name: container-php
+      environment:
+        - MYSQL_HOST=${MYSQL_HOST}    ## Host do serviço MySQL.
+      volumes:                        ## Útil para edições locais, em ambiente de produção.
+        - ./web:/var/www/html         ## essa configuração pode ser desabilitada.
+      working_dir: /var/www/html
+      depends_on:                     ## Instrução para que o container apenas se inicie.
+        - mysql                       ## após validar conexão com o banco de dados MySQL.
+      ports:
+       - "80:80"
+
+    phpmyadmin:                                 ## Útil para edições locais, em ambiente de produção
+        image: phpmyadmin/phpmyadmin:4.8.5
+        container_name: container-phpmyadmin
+        ports:
+            - "81:80"
+        environment:
+            - PMA_ARBITRARY=1                   ## Habilita o uso de servidores arbitrários MySQL
+            - PMA_HOST=${MYSQL_HOST}            ## Nome ou IP do banco de dados MySQL.
+            - PMA_PORT=3306                     ## Porta utilizada pelo banco.
+        depends_on:
+            - mysql
+
+    mailhog:
+        image: mailhog/mailhog:latest
+        container_name: container-mailhog
+        ports:
+            - "8011:8025"

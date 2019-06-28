@@ -1,0 +1,13 @@
+{
+    "name": "andersoncorso/docker-cakephp_lamp",
+    "description": "Ambiente docker com apache, mysql, phpmyadmin e mailhog configurado para trabalhar com o framework Cakephp 3x.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Anderson Corso",
+            "email": "andersoncorso89@gmail.com"
+        }
+    ],
+    "require": {}
+}
