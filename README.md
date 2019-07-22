@@ -3,6 +3,18 @@ Ambiente Docker com Apache, MySQL, PHPMyadmin e Mailhog configurado para trabalh
 Obs: Ambiente desenvolvido para trabalho local e testes, não recomendado para o uso em servidores de aplicação pública.
 
 
+## Configuração
+
+- No arquivo '.env', configure o nome prefixo do seu container e use o mesmo para o mysql-host;
+```console
+# CONTAINER
+NAME_PREFIX=container
+
+# MySQL config
+MYSQL_HOST=container-mysql
+```
+
+
 ### Primeira execução
 
 ```console

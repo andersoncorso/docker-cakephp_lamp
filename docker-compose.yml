@@ -21,7 +21,7 @@ services:
       build:
         context: ./etc/php
         dockerfile: Dockerfile
-      container_name: container-php
+      container_name: ${MYSQL_HOST}-php
       environment:
         - MYSQL_HOST=${MYSQL_HOST}                                    ## Host do serviço MySQL.
       volumes:                                                        ## Útil para edições locais, em ambiente de produção.
@@ -35,7 +35,7 @@ services:
 
     phpmyadmin:                                 ## Útil para edições locais, em ambiente de produção
         image: phpmyadmin/phpmyadmin:4.8.5
-        container_name: container-phpmyadmin
+        container_name: ${MYSQL_HOST}-phpmyadmin
         ports:
             - "81:80"
         environment:
@@ -47,6 +47,6 @@ services:
 
     mailhog:
         image: mailhog/mailhog:latest
-        container_name: container-mailhog
+        container_name: ${MYSQL_HOST}-mailhog
         ports:
             - "8011:8025"
